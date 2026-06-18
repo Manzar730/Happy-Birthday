@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Nayab ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600;1,800&display=swap" rel="stylesheet">
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 
 :root{
-  --bg:#04040a;
+  --bg:#03020a;
   --surface:rgba(255,255,255,0.04);
   --surface2:rgba(255,255,255,0.07);
   --accent:#ff6fa3;
@@ -34,30 +33,34 @@ body{
 }
 
 /* ─── GALAXY CANVAS ─── */
-#galaxy{
+#galaxyCanvas{
   position:fixed;
   inset:0;
   z-index:0;
   width:100%;
   height:100%;
+  display:block;
 }
 
-/* ─── AURORA OVERLAY ─── */
-#aurora{
+/* ─── NEBULA OVERLAY ─── */
+#nebula{
   position:fixed;
-  inset:-30%;
+  inset:-40%;
   z-index:1;
   background:
-    radial-gradient(circle at 20% 25%, rgba(201,123,255,.18), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255,111,163,.15), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(245,217,122,.08), transparent 38%);
-  filter:blur(100px);
-  animation:auroraShift 20s ease-in-out infinite alternate;
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(120,60,220,.22), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 65%, rgba(255,80,140,.16), transparent 55%),
+    radial-gradient(ellipse 70% 40% at 50% 80%, rgba(80,120,255,.12), transparent 55%),
+    radial-gradient(ellipse 40% 35% at 60% 20%, rgba(245,200,80,.08), transparent 50%);
+  filter:blur(90px);
+  animation:nebulaShift 25s ease-in-out infinite alternate;
+  pointer-events:none;
 }
-@keyframes auroraShift{
-  0%{transform:translate(-4%,-4%) scale(1);}
-  50%{transform:translate(3%,2%) scale(1.1);}
-  100%{transform:translate(5%,5%) scale(1.18);}
+@keyframes nebulaShift{
+  0%{transform:translate(-3%,-3%) scale(1) rotate(0deg);}
+  33%{transform:translate(4%,2%) scale(1.08) rotate(1deg);}
+  66%{transform:translate(-1%,5%) scale(1.12) rotate(-1deg);}
+  100%{transform:translate(5%,-2%) scale(1.15) rotate(2deg);}
 }
 
 /* ─── LOADER ─── */
@@ -200,7 +203,6 @@ body{
   display:flex;justify-content:center;gap:12px;
   flex-wrap:wrap;margin-top:42px;
 }
-
 .btn{
   border:none;cursor:pointer;border-radius:999px;
   padding:15px 32px;font-size:.78rem;font-weight:600;
@@ -215,7 +217,6 @@ body{
   opacity:0;transition:.3s;
 }
 .btn:hover::after{opacity:1;}
-
 .btn-primary{
   color:#fff;
   background:linear-gradient(135deg,var(--accent2),var(--accent));
@@ -226,7 +227,6 @@ body{
   box-shadow:0 20px 55px rgba(255,111,163,.45),0 0 0 1px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.2);
 }
 .btn-primary:active{transform:translateY(-1px) scale(1.01);}
-
 .btn-secondary{
   background:rgba(255,255,255,.06);
   color:var(--gold);
@@ -286,16 +286,10 @@ body{
   50%{transform:translateY(-18px);}
 }
 
-/* ─── CONFETTI PARTICLE ─── */
+/* ─── CONFETTI ─── */
 .confetti-piece{
   position:fixed;pointer-events:none;
-  border-radius:2px;
-  z-index:99998;
-  animation:confettiFall linear forwards;
-}
-@keyframes confettiFall{
-  0%{opacity:1;transform:translateY(0) rotate(0deg);}
-  100%{opacity:0;transform:translateY(100vh) rotate(720deg);}
+  border-radius:2px;z-index:99998;
 }
 
 /* ─── SUNFLOWER BURST ─── */
@@ -321,9 +315,7 @@ body{
   100%{opacity:0;transform:translateY(-90px) scale(.8);}
 }
 
-/* ─── STARS (canvas-based, see JS) ─── */
-
-/* ─── FINAL PAGE CAKE ─── */
+/* ─── FINAL ─── */
 .cake-emoji{
   font-size:3.5rem;margin-bottom:20px;display:block;
   animation:heartFloat 4s ease-in-out infinite;
@@ -339,6 +331,21 @@ body{
 .letter-scroll::-webkit-scrollbar-track{background:transparent;}
 .letter-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:99px;}
 
+/* ─── SHOOTING STAR ─── */
+.shooting-star{
+  position:fixed;pointer-events:none;z-index:2;
+  height:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,200,255,.6));
+  border-radius:99px;
+  animation:shootAcross linear forwards;
+}
+@keyframes shootAcross{
+  0%{opacity:0;transform:translate(0,0) scaleX(0);}
+  5%{opacity:1;}
+  85%{opacity:1;}
+  100%{opacity:0;transform:translate(var(--sx),var(--sy)) scaleX(1);}
+}
+
 @media(max-width:768px){
   .panel{padding:44px 28px;border-radius:28px;}
   .letter-panel{padding:44px 28px;}
@@ -348,9 +355,8 @@ body{
 </head>
 <body>
 
-<!-- GALAXY CANVAS -->
-<canvas id="galaxy"></canvas>
-<div id="aurora"></div>
+<canvas id="galaxyCanvas"></canvas>
+<div id="nebula"></div>
 
 <!-- LOADER -->
 <div id="loader">
@@ -362,11 +368,10 @@ body{
 
 <!-- MUSIC -->
 <button class="music-btn" id="musicBtn" title="Toggle music">♪</button>
-<audio id="bgMusic" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<!-- Birthday song via Web Audio API (no external file needed) -->
+<audio id="bgMusic" loop></audio>
 
-<!-- ═══════════════════ PAGE 1 ═══════════════════ -->
+<!-- ═════════ PAGE 1 ═════════ -->
 <section class="page active" id="page1">
   <div class="panel">
     <span class="hero-heart">💖</span>
@@ -375,14 +380,9 @@ body{
       Happy Birthday,<br>
       <span class="gold">Nayab</span>
     </h1>
-    <p class="subtitle">
-      A small corner of the internet,<br>
-      built with care, just for you.
-    </p>
+    <p class="subtitle">A small corner of the internet,<br>built with care, just for you.</p>
     <div class="divider">✦</div>
-    <p class="subtitle">
-      Would you like to discover why tonight feels<br>a little more magical than usual?
-    </p>
+    <p class="subtitle">Would you like to discover why tonight feels<br>a little more magical than usual?</p>
     <div class="btn-wrap">
       <button class="btn btn-primary" onclick="goPage(1,2,true)">Yes 💕</button>
       <button class="btn btn-secondary" onclick="goPage(1,3,false)">No 🧸</button>
@@ -390,7 +390,7 @@ body{
   </div>
 </section>
 
-<!-- ═══════════════════ PAGE 2 ═══════════════════ -->
+<!-- ═════════ PAGE 2 ═════════ -->
 <section class="page" id="page2">
   <div class="panel">
     <div class="kicker">A Little Secret</div>
@@ -398,11 +398,7 @@ body{
       You know why<br>
       <span class="glow">everything feels different?</span>
     </h1>
-    <p class="subtitle">
-      Because today is the day the world became a little brighter.
-      The day someone arrived without knowing how many lives
-      she would one day make happier simply by being herself.
-    </p>
+    <p class="subtitle">Because today is the day the world became a little brighter. The day someone arrived without knowing how many lives she would one day make happier simply by being herself.</p>
     <div class="divider">✦</div>
     <p class="subtitle">Would you like to know who that person is?</p>
     <div class="btn-wrap">
@@ -412,38 +408,28 @@ body{
   </div>
 </section>
 
-<!-- ═══════════════════ PAGE 3 (NO) ═══════════════════ -->
+<!-- ═════════ PAGE 3 (NO) ═════════ -->
 <section class="page" id="page3">
   <div class="panel">
     <span style="font-size:4rem;display:block;margin-bottom:18px">🧸</span>
     <div class="kicker">Seriously?</div>
     <h1 class="hero-title">You clicked <span class="glow">No?</span></h1>
-    <p class="subtitle">
-      The teddy bears are disappointed.<br>
-      The flowers are shocked.<br>
-      The stars are filing complaints.<br>
-      And somewhere a developer spent hours coding this.
-    </p>
+    <p class="subtitle">The teddy bears are disappointed.<br>The flowers are shocked.<br>The stars are filing complaints.<br>And somewhere a developer spent hours coding this.</p>
     <div class="divider">💕</div>
     <p class="subtitle">Fortunately it's your birthday, so you're forgiven.</p>
     <div class="btn-wrap">
       <button class="btn btn-primary" onclick="goPage(3,4,true)">Fine, Yes 💖</button>
-      <button class="btn btn-secondary" onclick="goPage(3,1,false)">Go Back</button>
+      <button class="btn btn-secondary" id="goBackBtn" onclick="goBackFromNo()">Go Back</button>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════ PAGE 4 ═══════════════════ -->
+<!-- ═════════ PAGE 4 ═════════ -->
 <section class="page" id="page4">
   <div class="panel">
     <div class="kicker">Of Course</div>
     <h1 class="hero-title">It's<br><span class="gold">You.</span></h1>
-    <p class="subtitle">
-      The reason this page exists.<br>
-      The reason the stars are shining.<br>
-      Among billions of people on Earth, Manzar chose to spend his hours
-      building a little universe of his own — just for you.
-    </p>
+    <p class="subtitle">The reason this page exists. The reason the stars are shining. Among billions of people on Earth, Manzar chose to spend his hours building a little universe of his own — just for you.</p>
     <div class="divider">✦</div>
     <p class="subtitle">And now there's something a little more personal waiting for you.</p>
     <div class="btn-wrap">
@@ -452,7 +438,7 @@ body{
   </div>
 </section>
 
-<!-- ═══════════════════ PAGE 5 — LETTER ═══════════════════ -->
+<!-- ═════════ PAGE 5 — LETTER ═════════ -->
 <section class="page" id="page5">
   <div class="panel letter-panel">
     <div class="kicker" style="justify-content:center">A Letter For Nayab</div>
@@ -483,7 +469,7 @@ body{
   </div>
 </section>
 
-<!-- ═══════════════════ PAGE 6 — GIFT ═══════════════════ -->
+<!-- ═════════ PAGE 6 — GIFT ═════════ -->
 <section class="page" id="page6">
   <div class="panel">
     <div class="kicker">A Small Gift</div>
@@ -493,8 +479,8 @@ body{
     <div id="giftReveal" style="display:none">
       <h2 style="font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:800;background:linear-gradient(135deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:22px">🌻 These Are For You 🌻</h2>
       <p class="subtitle" style="max-width:560px">
-        Please accept these sunflowers as my gift.<br><br>
-        I know sending something to your address might be against LALA policy. 😂<br>
+        Please accept these sunflowers as my gift. 🌻<br><br>
+        I know, I know — sending anything to your address is a <em>dangerous mission</em> because Lala might get offended. 😂<br>
         So I chose sunflowers. Simple. Warm. Safe.<br>
         And hopefully capable of carrying a little happiness through a screen.<br><br>
         Consider this your virtual bouquet, sent with affection and lots of good wishes. 💛
@@ -506,7 +492,7 @@ body{
   </div>
 </section>
 
-<!-- ═══════════════════ PAGE 7 — FINAL ═══════════════════ -->
+<!-- ═════════ PAGE 7 — FINAL ═════════ -->
 <section class="page" id="page7">
   <div class="panel">
     <span class="cake-emoji">🎂</span>
@@ -515,7 +501,7 @@ body{
     <p class="subtitle">
       May this year bring you everything your heart hopes for.<br>
       May your happiest moments become even happier.<br>
-      May your difficult moments become easier.<br>
+      May your difficult days become easier.<br>
       And may you always know that someone out there is genuinely rooting for your happiness.
     </p>
     <div class="divider">💖</div>
@@ -529,169 +515,431 @@ body{
 </section>
 
 <script>
-/* ══════════════════════════════════════════
-   GALAXY 3D BACKGROUND (WebGL stars)
-══════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   CINEMATIC GALAXY — 2D Canvas, multi-layer, parallax
+══════════════════════════════════════════════════════ */
 (function(){
-  const canvas = document.getElementById('galaxy');
-  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-  if(!gl){ canvas.style.display='none'; return; }
+  const C = document.getElementById('galaxyCanvas');
+  const ctx = C.getContext('2d');
+
+  let W, H, mouse = {x:0, y:0}, touch = {x:0, y:0};
+  let targetMX = 0, targetMY = 0;
+  let smoothMX = 0, smoothMY = 0;
 
   function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    gl.viewport(0,0,canvas.width,canvas.height);
+    W = C.width  = window.innerWidth;
+    H = C.height = window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', ()=>{ resize(); initStars(); });
 
-  const vsSource = `
-    attribute vec3 aPos;
-    attribute float aSize;
-    attribute float aBrightness;
-    uniform float uTime;
-    uniform mat4 uRot;
-    varying float vBright;
-    void main(){
-      vec4 rotated = uRot * vec4(aPos, 1.0);
-      float z = rotated.z;
-      float dist = length(rotated.xy);
-      float twinkle = aBrightness * (0.6 + 0.4 * sin(uTime * 2.0 + aPos.x * 37.0 + aPos.y * 19.0));
-      float depthFade = clamp((z + 2.0) / 4.0, 0.0, 1.0);
-      vBright = twinkle * depthFade;
-      float fov = 1.5;
-      vec2 proj = rotated.xy / (z + fov) * fov;
-      gl_Position = vec4(proj, 0.0, 1.0);
-      gl_PointSize = aSize * depthFade * (1.0 + 0.3 * twinkle);
-    }
-  `;
-  const fsSource = `
-    precision mediump float;
-    varying float vBright;
-    uniform vec3 uColor;
-    void main(){
-      float d = length(gl_PointCoord - vec2(0.5));
-      if(d > 0.5) discard;
-      float alpha = (1.0 - d * 2.0) * vBright;
-      gl_FragColor = vec4(uColor, alpha);
-    }
-  `;
+  // ── Mouse / Touch parallax ──
+  window.addEventListener('mousemove', e=>{
+    targetMX = (e.clientX / W - .5) * 2;
+    targetMY = (e.clientY / H - .5) * 2;
+  });
+  window.addEventListener('touchmove', e=>{
+    const t = e.touches[0];
+    targetMX = (t.clientX / W - .5) * 2;
+    targetMY = (t.clientY / H - .5) * 2;
+  }, {passive:true});
 
-  function makeShader(type, src){
-    const s = gl.createShader(type);
-    gl.shaderSource(s, src); gl.compileShader(s);
-    return s;
+  // ── STAR LAYERS ──
+  // Each layer has different depth, size, speed
+  const LAYERS = [
+    { count: 180, minR:3.5, maxR:7,   speed:.6, alpha:.95, twinkle:.04 },  // Large foreground
+    { count: 280, minR:2,   maxR:4.5, speed:.4, alpha:.8,  twinkle:.06 },  // Mid
+    { count: 380, minR:1,   maxR:3,   speed:.2, alpha:.65, twinkle:.08 },  // Far
+    { count: 200, minR:.8,  maxR:2,   speed:.08, alpha:.45, twinkle:.1 },  // Deep
+  ];
+
+  const STAR_COLORS = [
+    [255,255,255],  // white
+    [230,220,255],  // lavender white
+    [200,210,255],  // blue white
+    [255,240,200],  // warm gold
+    [255,180,220],  // pink
+    [180,220,255],  // ice blue
+    [255,255,220],  // yellow white
+  ];
+
+  let stars = [];
+
+  function initStars(){
+    stars = [];
+    LAYERS.forEach((L, li)=>{
+      for(let i=0;i<L.count;i++){
+        const col = STAR_COLORS[Math.floor(Math.random()*STAR_COLORS.length)];
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          bx: Math.random() * W, // base x (for parallax origin)
+          by: Math.random() * H,
+          r: L.minR + Math.random()*(L.maxR - L.minR),
+          alpha: L.alpha * (.6 + Math.random()*.4),
+          baseAlpha: L.alpha * (.6 + Math.random()*.4),
+          speed: L.speed,
+          twinkleSpeed: .5 + Math.random()*L.twinkle*20,
+          twinklePhase: Math.random()*Math.PI*2,
+          col,
+          layer: li,
+          // Glow halo radius multiplier
+          halo: Math.random() > .6 ? 2.5 + Math.random()*3 : 0,
+          // Sparkle cross
+          sparkle: Math.random() > .75,
+        });
+      }
+    });
   }
-  const prog = gl.createProgram();
-  gl.attachShader(prog, makeShader(gl.VERTEX_SHADER, vsSource));
-  gl.attachShader(prog, makeShader(gl.FRAGMENT_SHADER, fsSource));
-  gl.linkProgram(prog); gl.useProgram(prog);
+  initStars();
 
-  const N = 2800;
-  const pos = new Float32Array(N*3);
-  const sizes = new Float32Array(N);
-  const bright = new Float32Array(N);
-
-  for(let i=0;i<N;i++){
-    const theta = Math.random()*Math.PI*2;
-    const phi = Math.acos(2*Math.random()-1);
-    const r = 1.5 + Math.random()*1.2;
-    // galaxy disc bias
-    const disc = Math.random() < 0.55;
-    if(disc){
-      const angle = Math.random()*Math.PI*2;
-      const rad = Math.pow(Math.random(),0.5)*1.8;
-      pos[i*3]   = Math.cos(angle)*rad*(1+Math.random()*.4);
-      pos[i*3+1] = (Math.random()-.5)*0.25;
-      pos[i*3+2] = Math.sin(angle)*rad*(1+Math.random()*.4)*0.5;
-    } else {
-      pos[i*3]   = Math.sin(phi)*Math.cos(theta)*r;
-      pos[i*3+1] = Math.cos(phi)*r;
-      pos[i*3+2] = Math.sin(phi)*Math.sin(theta)*r;
-    }
-    sizes[i] = 1.2 + Math.random()*2.8;
-    bright[i] = 0.4 + Math.random()*0.6;
-  }
-
-  function mkBuf(data){
-    const b = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, b);
-    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-    return b;
-  }
-
-  const posBuf = mkBuf(pos);
-  const sizeBuf = mkBuf(sizes);
-  const brightBuf = mkBuf(bright);
-
-  function bindAttr(buf, name, size){
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    const loc = gl.getAttribLocation(prog, name);
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
+  // ── PARTICLE CLUSTERS (nebula dust) ──
+  const DUST = [];
+  const DUST_COUNT = 120;
+  for(let i=0;i<DUST_COUNT;i++){
+    DUST.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: 1 + Math.random()*1.5,
+      alpha: .1 + Math.random()*.25,
+      col: [
+        [180,100,255],
+        [255,100,160],
+        [100,160,255],
+        [255,220,120],
+      ][Math.floor(Math.random()*4)],
+      speed: .05 + Math.random()*.1,
+      angle: Math.random()*Math.PI*2,
+      drift: .001 + Math.random()*.003,
+    });
   }
 
-  const uTime = gl.getUniformLocation(prog, 'uTime');
-  const uRot  = gl.getUniformLocation(prog, 'uRot');
-  const uColor = gl.getUniformLocation(prog, 'uColor');
+  // ── SHOOTING STARS ──
+  let shootingStars = [];
+  function spawnShootingStar(){
+    const angle = (.15 + Math.random()*.2) * Math.PI; // diagonal down-right
+    const speed = 6 + Math.random()*8;
+    const startX = Math.random()*(W*.7);
+    const startY = Math.random()*(H*.4);
+    shootingStars.push({
+      x: startX, y: startY,
+      vx: Math.cos(angle)*speed,
+      vy: Math.sin(angle)*speed,
+      len: 60 + Math.random()*120,
+      alpha:1, life:1,
+      r: .8 + Math.random()*.8,
+    });
+  }
+  setInterval(()=>{
+    if(Math.random()<.7) spawnShootingStar();
+  }, 2800);
 
-  gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-
-  let t = 0;
-  let mouseX = 0, mouseY = 0;
-  document.addEventListener('mousemove', e=>{
-    mouseX = (e.clientX/window.innerWidth - .5) * .4;
-    mouseY = (e.clientY/window.innerHeight - .5) * .3;
+  // ── PARTICLE TRAILS on cursor ──
+  let trails = [];
+  let lastTrailTime = 0;
+  window.addEventListener('mousemove', e=>{
+    const now = Date.now();
+    if(now - lastTrailTime < 40) return;
+    lastTrailTime = now;
+    trails.push({
+      x:e.clientX, y:e.clientY,
+      r: 1 + Math.random()*2.5,
+      alpha:.7,
+      col: Math.random()>.5?[255,111,163]:[201,123,255],
+      life:1,
+    });
   });
 
-  function rotMat(rx, ry){
-    const cx=Math.cos(rx),sx=Math.sin(rx);
-    const cy=Math.cos(ry),sy=Math.sin(ry);
-    return [
-      cy,    0,   sy,  0,
-      sx*sy, cx, -sx*cy,0,
-     -cx*sy, sx,  cx*cy,0,
-      0,     0,   0,   1
-    ];
+  // ── BLOOM / GLOW helper ──
+  function drawGlow(x,y,r,col,a){
+    if(!isFinite(x)||!isFinite(y)||!isFinite(r)||r<=0||!isFinite(a)||a<=0) return;
+    const g = ctx.createRadialGradient(x,y,0,x,y,r);
+    g.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},${Math.min(1,a)})`);
+    g.addColorStop(1,`rgba(${col[0]},${col[1]},${col[2]},0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fill();
   }
 
-  function draw(){
-    t += 0.004;
-    gl.clearColor(0.016,0.016,0.04,1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    const rx = mouseY + Math.sin(t*.15)*.12;
-    const ry = t*.08 + mouseX;
-    const mat = rotMat(rx, ry);
-    gl.uniformMatrix4fv(uRot, false, mat);
-    gl.uniform1f(uTime, t);
-
-    bindAttr(posBuf,'aPos',3);
-    bindAttr(sizeBuf,'aSize',1);
-    bindAttr(brightBuf,'aBrightness',1);
-
-    // White/blue-white stars
-    gl.uniform3f(uColor, 0.88, 0.88, 1.0);
-    gl.drawArrays(gl.POINTS, 0, Math.floor(N*.75));
-
-    // Pink accent stars
-    gl.uniform3f(uColor, 1.0, 0.6, 0.75);
-    gl.drawArrays(gl.POINTS, Math.floor(N*.75), Math.floor(N*.13));
-
-    // Gold accent stars
-    gl.uniform3f(uColor, 1.0, 0.88, 0.5);
-    gl.drawArrays(gl.POINTS, Math.floor(N*.88), Math.floor(N*.12));
-
-    requestAnimationFrame(draw);
+  function drawSparkle(x,y,r,col,a){
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.strokeStyle = `rgb(${col[0]},${col[1]},${col[2]})`;
+    ctx.lineWidth = .7;
+    const sz = r*2.5;
+    ctx.beginPath();
+    ctx.moveTo(x-sz,y); ctx.lineTo(x+sz,y);
+    ctx.moveTo(x,y-sz); ctx.lineTo(x,y+sz);
+    ctx.moveTo(x-sz*.6,y-sz*.6); ctx.lineTo(x+sz*.6,y+sz*.6);
+    ctx.moveTo(x+sz*.6,y-sz*.6); ctx.lineTo(x-sz*.6,y+sz*.6);
+    ctx.stroke();
+    ctx.restore();
   }
-  draw();
+
+  let t = 0;
+
+  function frame(){
+    t += .016;
+
+    // Smooth mouse
+    smoothMX += (targetMX - smoothMX) * .04;
+    smoothMY += (targetMY - smoothMY) * .04;
+
+    ctx.clearRect(0,0,W,H);
+
+    // Deep space gradient base
+    const bg = ctx.createRadialGradient(W*.4, H*.35, 0, W*.5, H*.5, Math.max(W,H)*.75);
+    bg.addColorStop(0,'#0d0520');
+    bg.addColorStop(.4,'#060212');
+    bg.addColorStop(1,'#02010a');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0,0,W,H);
+
+    // ── Nebula soft blobs ──
+    const nebula1 = ctx.createRadialGradient(W*.2,H*.3,0,W*.2,H*.3,W*.4);
+    nebula1.addColorStop(0,'rgba(120,50,200,.09)');
+    nebula1.addColorStop(1,'rgba(120,50,200,0)');
+    ctx.fillStyle=nebula1;ctx.fillRect(0,0,W,H);
+
+    const nebula2 = ctx.createRadialGradient(W*.8,H*.65,0,W*.8,H*.65,W*.35);
+    nebula2.addColorStop(0,'rgba(255,80,130,.07)');
+    nebula2.addColorStop(1,'rgba(255,80,130,0)');
+    ctx.fillStyle=nebula2;ctx.fillRect(0,0,W,H);
+
+    const nebula3 = ctx.createRadialGradient(W*.5,H*.8,0,W*.5,H*.8,W*.3);
+    nebula3.addColorStop(0,'rgba(60,110,255,.06)');
+    nebula3.addColorStop(1,'rgba(60,110,255,0)');
+    ctx.fillStyle=nebula3;ctx.fillRect(0,0,W,H);
+
+    // ── Dust particles ──
+    DUST.forEach(d=>{
+      d.angle += d.drift;
+      d.x += Math.cos(d.angle)*d.speed + smoothMX*d.speed*8;
+      d.y += Math.sin(d.angle)*d.speed + smoothMY*d.speed*8;
+      if(d.x<-10)d.x=W+10; if(d.x>W+10)d.x=-10;
+      if(d.y<-10)d.y=H+10; if(d.y>H+10)d.y=-10;
+      drawGlow(d.x,d.y,d.r*6,d.col,d.alpha*.4);
+      ctx.globalAlpha=d.alpha;
+      ctx.fillStyle=`rgb(${d.col[0]},${d.col[1]},${d.col[2]})`;
+      ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();
+      ctx.globalAlpha=1;
+    });
+
+    // ── Stars ──
+    stars.forEach(s=>{
+      // Parallax offset by layer depth
+      const px = s.bx + smoothMX * s.speed * 60;
+      const py = s.by + smoothMY * s.speed * 60;
+      s.x = px; s.y = py;
+
+      // Twinkle
+      const tw = Math.sin(t * s.twinkleSpeed + s.twinklePhase);
+      const a = Math.max(.05, s.baseAlpha + tw * .3);
+
+      // Halo / bloom
+      if(s.halo > 0){
+        drawGlow(s.x, s.y, s.r * s.halo, s.col, a * .25);
+        drawGlow(s.x, s.y, s.r * s.halo * 1.8, s.col, a * .08);
+      }
+
+      // Core star
+      ctx.globalAlpha = a;
+      ctx.fillStyle = `rgb(${s.col[0]},${s.col[1]},${s.col[2]})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fill();
+
+      // Sparkle cross on big stars
+      if(s.sparkle && s.r > 2.5){
+        drawSparkle(s.x, s.y, s.r, s.col, a*.5);
+      }
+      ctx.globalAlpha = 1;
+    });
+
+    // ── Shooting stars ──
+    shootingStars = shootingStars.filter(ss=>{
+      ss.x += ss.vx; ss.y += ss.vy;
+      ss.life -= .018;
+      if(ss.life <= 0) return false;
+      const a = ss.life;
+      // Safe magnitude — guard against zero
+      const mag = Math.sqrt(ss.vx*ss.vx + ss.vy*ss.vy) || 1;
+      const nx = ss.vx / mag;  // unit vector
+      const ny = ss.vy / mag;
+      const tx = ss.x - nx * ss.len;   // tail end
+      const ty = ss.y - ny * ss.len;
+      // Only draw gradient if points are different
+      if(Math.abs(ss.x-tx) > 0.01 || Math.abs(ss.y-ty) > 0.01){
+        const g = ctx.createLinearGradient(ss.x, ss.y, tx, ty);
+        g.addColorStop(0,`rgba(255,255,255,${a})`);
+        g.addColorStop(.4,`rgba(220,180,255,${a*.5})`);
+        g.addColorStop(1,'rgba(200,150,255,0)');
+        ctx.strokeStyle=g;
+        ctx.lineWidth=ss.r*1.5;
+        ctx.lineCap='round';
+        ctx.beginPath();
+        ctx.moveTo(ss.x, ss.y);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+      }
+      // Head glow
+      drawGlow(ss.x, ss.y, 8, [255,255,255], a*.8);
+      return true;
+    });
+
+    // ── Cursor trails ──
+    trails = trails.filter(tr=>{
+      tr.alpha -= .06;
+      tr.life  -= .06;
+      if(tr.alpha<=0) return false;
+      drawGlow(tr.x, tr.y, tr.r*5, tr.col, tr.alpha*.3);
+      ctx.globalAlpha = tr.alpha;
+      ctx.fillStyle=`rgb(${tr.col[0]},${tr.col[1]},${tr.col[2]})`;
+      ctx.beginPath(); ctx.arc(tr.x,tr.y,tr.r,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=1;
+      return true;
+    });
+
+    requestAnimationFrame(frame);
+  }
+  frame();
 })();
 
 /* ══════════════════════════════════════════
-   PAGE TRANSITIONS (fade + zoom)
+   BIRTHDAY SONG — Web Audio API
+   Plays the actual "Happy Birthday to You" melody
 ══════════════════════════════════════════ */
+let audioCtx = null;
+let songPlaying = false;
+let songNodes = [];
+
+// Happy Birthday melody: [note in Hz, duration in beats]
+const NOTES = {
+  C4:261.63, D4:293.66, E4:329.63, F4:349.23,
+  G4:392.00, A4:440.00, Bb4:466.16,
+  C5:523.25, D5:587.33, E5:659.25, F5:698.46,
+  G5:783.99, A5:880.00, _:0
+};
+// Happy Birthday to You — full melody
+const MELODY = [
+  // "Hap-py Birth-day to You"
+  [NOTES.C4,.75],[NOTES.C4,.25],[NOTES.D4,1],[NOTES.C4,1],[NOTES.F4,1],[NOTES.E4,2],
+  // "Hap-py Birth-day to You"
+  [NOTES.C4,.75],[NOTES.C4,.25],[NOTES.D4,1],[NOTES.C4,1],[NOTES.G4,1],[NOTES.F4,2],
+  // "Hap-py Birth-day dear Nayab"
+  [NOTES.C4,.75],[NOTES.C4,.25],[NOTES.C5,1],[NOTES.A4,1],[NOTES.F4,1],[NOTES.E4,1],[NOTES.D4,1],
+  // "Hap-py Birth-day to You"
+  [NOTES.Bb4,.75],[NOTES.Bb4,.25],[NOTES.A4,1],[NOTES.F4,1],[NOTES.G4,1],[NOTES.F4,2.5],
+];
+const BPM = 82;
+const BEAT = 60 / BPM;
+
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+
+function playBirthdaySong(){
+  if(!audioCtx) return;
+  stopSong();
+  songPlaying = true;
+
+  const master = audioCtx.createGain();
+  master.gain.setValueAtTime(0.18, audioCtx.currentTime);
+  master.connect(audioCtx.destination);
+
+  // Reverb-like (convolver would need buffer; use delay + gain for atmosphere)
+  const delay = audioCtx.createDelay(.35);
+  const delayGain = audioCtx.createGain();
+  delayGain.gain.value = .22;
+  delay.connect(delayGain);
+  delayGain.connect(delay);
+  delayGain.connect(master);
+
+  let startTime = audioCtx.currentTime + .1;
+
+  function playNote(freq, dur, start){
+    if(freq === 0){ return; }
+
+    // Main tone — soft sine + slight triangle mix
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
+    const env  = audioCtx.createGain();
+
+    osc1.type = 'sine';
+    osc2.type = 'triangle';
+    osc1.frequency.value = freq;
+    osc2.frequency.value = freq;
+
+    // Envelope: quick attack, gentle decay, sustain, short release
+    env.gain.setValueAtTime(0, start);
+    env.gain.linearRampToValueAtTime(.7, start + .04);
+    env.gain.linearRampToValueAtTime(.5, start + .12);
+    env.gain.setValueAtTime(.5, start + dur*BEAT*.75);
+    env.gain.linearRampToValueAtTime(0, start + dur*BEAT*.98);
+
+    osc1.connect(env);
+    osc2.connect(env);
+    env.connect(master);
+    env.connect(delay);
+
+    osc1.start(start);
+    osc1.stop(start + dur*BEAT + .05);
+    osc2.start(start);
+    osc2.stop(start + dur*BEAT + .05);
+
+    songNodes.push(osc1, osc2);
+  }
+
+  let t = startTime;
+  MELODY.forEach(([freq, beats])=>{
+    playNote(freq, beats, t);
+    t += beats * BEAT;
+  });
+
+  // Loop: schedule replay
+  const totalDur = MELODY.reduce((s,[,b])=>s+b*BEAT, 0);
+  songNodes._loopTimer = setTimeout(()=>{
+    if(songPlaying) playBirthdaySong();
+  }, (totalDur + .5)*1000);
+}
+
+function stopSong(){
+  songPlaying = false;
+  songNodes.forEach(n=>{ try{ n.stop(); }catch(e){} });
+  clearTimeout(songNodes._loopTimer);
+  songNodes = [];
+}
+
+/* ══════════════════════════════════════════
+   MUSIC BUTTON
+══════════════════════════════════════════ */
+const musicBtn = document.getElementById('musicBtn');
+let musicOn = false;
+
+musicBtn.onclick = ()=>{
+  initAudio();
+  musicOn = !musicOn;
+  if(musicOn){
+    playBirthdaySong();
+    musicBtn.innerHTML='♫';
+    musicBtn.classList.add('playing');
+  } else {
+    stopSong();
+    musicBtn.innerHTML='♪';
+    musicBtn.classList.remove('playing');
+  }
+};
+
+/* ══════════════════════════════════════════
+   PAGE TRANSITIONS
+══════════════════════════════════════════ */
+let noOrigin = 1; // track where No was clicked
+
 function goPage(from, to, isYes){
+  if(from === 1 && !isYes) noOrigin = 1;
+  if(from === 2 && !isYes) noOrigin = 2;
   if(isYes) launchConfetti();
 
   const fromEl = document.getElementById('page'+from);
@@ -706,45 +954,40 @@ function goPage(from, to, isYes){
   }, 380);
 }
 
-/* ══════════════════════════════════════════
-   CONFETTI ENGINE
-══════════════════════════════════════════ */
-const confettiColors = [
-  '#ff6fa3','#c97bff','#f5d97a','#7affda',
-  '#ffffff','#ff9de2','#a0c4ff','#ffadad'
-];
-
-function launchConfetti(){
-  const count = 180;
-  for(let i=0;i<count;i++){
-    setTimeout(()=> spawnConfetti(), Math.random()*600);
-  }
+function goBackFromNo(){
+  const fromEl = document.getElementById('page3');
+  const toEl   = document.getElementById('page'+noOrigin);
+  fromEl.classList.add('leaving');
+  setTimeout(()=>{
+    fromEl.classList.remove('active','leaving');
+    toEl.classList.add('active','entering');
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(()=> toEl.classList.remove('entering'), 800);
+  }, 380);
 }
 
+/* ══════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════ */
+const CONF_COLORS = ['#ff6fa3','#c97bff','#f5d97a','#7affda','#ffffff','#ff9de2','#a0c4ff','#ffadad'];
+function launchConfetti(){
+  for(let i=0;i<160;i++) setTimeout(spawnConfetti, Math.random()*600);
+}
 function spawnConfetti(){
   const el = document.createElement('div');
   el.className = 'confetti-piece';
-  const w = 6 + Math.random()*8;
-  const h = 6 + Math.random()*14;
-  el.style.width = w+'px';
-  el.style.height = h+'px';
-  el.style.left = Math.random()*100+'vw';
-  el.style.top = '-20px';
-  el.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
-  el.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
-  el.style.opacity = '1';
-  const dur = 2.2 + Math.random()*1.8;
-  el.style.animationDuration = dur+'s';
-  el.style.animationDelay = '0s';
-  // Random horizontal drift
-  const drift = (Math.random()-0.5)*80;
-  el.style.setProperty('--drift', drift+'px');
-  el.style.animationTimingFunction = 'cubic-bezier(0.25,0.46,0.45,0.94)';
+  const w = 5+Math.random()*9, h = 5+Math.random()*14;
+  el.style.width=w+'px'; el.style.height=h+'px';
+  el.style.left=Math.random()*100+'vw'; el.style.top='-20px';
+  el.style.background=CONF_COLORS[Math.floor(Math.random()*CONF_COLORS.length)];
+  el.style.borderRadius=Math.random()>.5?'50%':'2px';
+  const dur=2.2+Math.random()*1.8;
+  const drift=(Math.random()-.5)*90;
   document.body.appendChild(el);
   el.animate([
-    {transform:`translateY(0) rotate(0deg) translateX(0px)`, opacity:1},
-    {transform:`translateY(100vh) rotate(${360+Math.random()*360}deg) translateX(${drift}px)`, opacity:0}
-  ],{duration:dur*1000,easing:'ease-in',fill:'forwards'}).onfinish = ()=> el.remove();
+    {transform:`translateY(0) rotate(0deg) translateX(0px)`,opacity:1},
+    {transform:`translateY(100vh) rotate(${360+Math.random()*360}deg) translateX(${drift}px)`,opacity:0}
+  ],{duration:dur*1000,easing:'ease-in',fill:'forwards'}).onfinish=()=>el.remove();
 }
 
 /* ══════════════════════════════════════════
@@ -752,71 +995,58 @@ function spawnConfetti(){
 ══════════════════════════════════════════ */
 function revealGift(){
   const box = document.getElementById('giftBox');
-  box.style.transform = 'scale(0) rotate(15deg)';
-  box.style.opacity = '0';
+  box.style.transition='transform .5s ease,opacity .5s ease';
+  box.style.transform='scale(0) rotate(15deg)';
+  box.style.opacity='0';
 
-  // Sunflower burst
-  for(let i=0;i<50;i++){
+  for(let i=0;i<55;i++){
     setTimeout(()=>{
-      const f = document.createElement('div');
-      f.className = 'sunflower';
-      f.textContent = '🌻';
-      f.style.left = window.innerWidth/2+'px';
-      f.style.top  = window.innerHeight/2+'px';
-      f.style.fontSize = (18+Math.random()*36)+'px';
-      f.style.position = 'fixed';
-      f.style.setProperty('--dx',(Math.random()*900-450)+'px');
-      f.style.setProperty('--dy',(Math.random()*-700)+'px');
+      const f=document.createElement('div');
+      f.className='sunflower';
+      f.textContent='🌻';
+      f.style.left=window.innerWidth/2+'px';
+      f.style.top=window.innerHeight/2+'px';
+      f.style.fontSize=(18+Math.random()*38)+'px';
+      f.style.position='fixed';
+      f.style.setProperty('--dx',(Math.random()*1000-500)+'px');
+      f.style.setProperty('--dy',(Math.random()*-800)+'px');
       document.body.appendChild(f);
-      setTimeout(()=> f.remove(), 1900);
-    }, Math.random()*300);
+      setTimeout(()=>f.remove(),1950);
+    },Math.random()*320);
   }
 
   setTimeout(()=>{
     box.style.display='none';
-    document.getElementById('giftReveal').style.display='block';
-    document.getElementById('giftReveal').animate(
+    const rev=document.getElementById('giftReveal');
+    rev.style.display='block';
+    rev.animate(
       [{opacity:0,transform:'scale(.95) translateY(10px)'},{opacity:1,transform:'scale(1) translateY(0)'}],
       {duration:600,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}
     );
     launchConfetti();
-  },500);
+  },520);
 }
+
+/* ══════════════════════════════════════════
+   CLICK HEARTS
+══════════════════════════════════════════ */
+const HEART_SYM = ['💖','💕','✨','💫','🌸','💗','⭐'];
+document.addEventListener('click',e=>{
+  if(e.target.closest('button')) return;
+  const h=document.createElement('div');
+  h.className='click-heart';
+  h.textContent=HEART_SYM[Math.floor(Math.random()*HEART_SYM.length)];
+  h.style.left=e.clientX-12+'px';
+  h.style.top=e.clientY-12+'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1200);
+});
 
 /* ══════════════════════════════════════════
    LOADER
 ══════════════════════════════════════════ */
 window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('loader').classList.add('hide');
-  }, 2700);
-});
-
-/* ══════════════════════════════════════════
-   MUSIC
-══════════════════════════════════════════ */
-const music = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-let playing = false;
-musicBtn.onclick = ()=>{
-  playing = !playing;
-  if(playing){ music.play(); musicBtn.classList.add('playing'); musicBtn.innerHTML='♫'; }
-  else { music.pause(); musicBtn.classList.remove('playing'); musicBtn.innerHTML='♪'; }
-};
-
-/* ══════════════════════════════════════════
-   CLICK HEARTS
-══════════════════════════════════════════ */
-const heartSymbols = ['💖','💕','✨','💫','🌸','💗'];
-document.addEventListener('click',e=>{
-  if(e.target.closest('button')) return;
-  const h = document.createElement('div');
-  h.className = 'click-heart';
-  h.textContent = heartSymbols[Math.floor(Math.random()*heartSymbols.length)];
-  h.style.left = e.clientX-12+'px';
-  h.style.top  = e.clientY-12+'px';
-  document.body.appendChild(h);
-  setTimeout(()=> h.remove(), 1200);
+  setTimeout(()=> document.getElementById('loader').classList.add('hide'), 2700);
 });
 </script>
 </body>
