@@ -32,7 +32,6 @@ body{
   min-height:100vh;
 }
 
-/* ─── GALAXY CANVAS ─── */
 #galaxyCanvas{
   position:fixed;
   inset:0;
@@ -42,7 +41,6 @@ body{
   display:block;
 }
 
-/* ─── NEBULA OVERLAY ─── */
 #nebula{
   position:fixed;
   inset:-40%;
@@ -63,7 +61,6 @@ body{
   100%{transform:translate(5%,-2%) scale(1.15) rotate(2deg);}
 }
 
-/* ─── LOADER ─── */
 #loader{
   position:fixed;inset:0;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
@@ -97,7 +94,6 @@ body{
   animation:loadBar 2.6s cubic-bezier(.4,0,.2,1) forwards;}
 @keyframes loadBar{to{width:100%;}}
 
-/* ─── MUSIC BTN ─── */
 .music-btn{
   position:fixed;top:22px;right:22px;z-index:9999;
   width:52px;height:52px;border-radius:50%;
@@ -117,26 +113,33 @@ body{
   50%{box-shadow:0 0 40px rgba(255,111,163,.45),0 0 0 1px rgba(255,111,163,.2);}
 }
 
-/* ─── PAGE SYSTEM ─── */
+/* ─── SMOOTH PAGE TRANSITIONS ─── */
 .page{
-  min-height:100vh;display:none;
+  min-height:100vh;
+  display:none;
   justify-content:center;align-items:center;
   padding:30px;position:relative;z-index:10;
+  /* Always visible, transitions handle opacity */
 }
-.page.active{display:flex;}
-.page.entering{animation:pageEnter .75s cubic-bezier(.22,1,.36,1) forwards;}
-.page.leaving{animation:pageLeave .4s cubic-bezier(.4,0,1,1) forwards;}
+.page.active{
+  display:flex;
+}
+.page.entering{
+  animation:pageEnter .55s cubic-bezier(.22,1,.36,1) both;
+}
+.page.leaving{
+  animation:pageLeave .35s cubic-bezier(.4,0,1,1) both;
+}
 
 @keyframes pageEnter{
-  from{opacity:0;transform:scale(.96) translateY(20px);}
-  to{opacity:1;transform:scale(1) translateY(0);}
+  from{opacity:0;transform:translateY(16px) scale(.98);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 @keyframes pageLeave{
   from{opacity:1;transform:scale(1);}
-  to{opacity:0;transform:scale(1.03);}
+  to{opacity:0;transform:scale(1.02);}
 }
 
-/* ─── GLASS PANEL ─── */
 .panel{
   width:100%;max-width:680px;
   padding:72px 56px;border-radius:36px;
@@ -150,6 +153,8 @@ body{
     0 0 0 1px rgba(255,255,255,.04),
     inset 0 1px 0 rgba(255,255,255,.12);
   position:relative;overflow:hidden;
+  /* Start visible to avoid flash */
+  opacity:1;
 }
 .panel::before{
   content:'';position:absolute;inset:0;
@@ -157,7 +162,6 @@ body{
   pointer-events:none;
 }
 
-/* ─── TYPOGRAPHY ─── */
 .kicker{
   display:inline-flex;align-items:center;gap:8px;
   color:var(--gold);text-transform:uppercase;
@@ -188,7 +192,6 @@ body{
   font-size:.95rem;font-weight:300;
 }
 
-/* ─── DIVIDER ─── */
 .divider{
   display:flex;align-items:center;gap:14px;
   margin:36px 0;color:var(--muted);font-size:.9rem;
@@ -198,7 +201,6 @@ body{
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);
 }
 
-/* ─── BUTTONS ─── */
 .btn-wrap{
   display:flex;justify-content:center;gap:12px;
   flex-wrap:wrap;margin-top:42px;
@@ -240,7 +242,6 @@ body{
   box-shadow:0 8px 25px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12);
 }
 
-/* ─── HERO DATE ─── */
 .hero-date{
   letter-spacing:.4em;text-transform:uppercase;
   color:rgba(255,255,255,.3);font-size:.7rem;font-weight:400;
@@ -255,7 +256,6 @@ body{
   50%{transform:translateY(-12px) scale(1.06);}
 }
 
-/* ─── LETTER PAGE ─── */
 .letter-panel{
   max-width:860px;
   text-align:left;
@@ -269,7 +269,6 @@ body{
 }
 .letter-body p:last-of-type{color:rgba(255,255,255,.9);}
 
-/* ─── GIFT ─── */
 .gift-box{
   font-size:7rem;
   animation:giftFloat 4s ease-in-out infinite;
@@ -286,13 +285,11 @@ body{
   50%{transform:translateY(-18px);}
 }
 
-/* ─── CONFETTI ─── */
 .confetti-piece{
   position:fixed;pointer-events:none;
   border-radius:2px;z-index:99998;
 }
 
-/* ─── SUNFLOWER BURST ─── */
 .sunflower{
   position:fixed;pointer-events:none;z-index:99998;
   animation:flowerBurst 1.8s cubic-bezier(.22,1,.36,1) forwards;
@@ -303,7 +300,6 @@ body{
   100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(360deg) scale(1.4);}
 }
 
-/* ─── CLICK HEART ─── */
 .click-heart{
   position:fixed;pointer-events:none;z-index:99997;
   font-size:1.3rem;
@@ -315,13 +311,11 @@ body{
   100%{opacity:0;transform:translateY(-90px) scale(.8);}
 }
 
-/* ─── FINAL ─── */
 .cake-emoji{
   font-size:3.5rem;margin-bottom:20px;display:block;
   animation:heartFloat 4s ease-in-out infinite;
 }
 
-/* ─── SCROLLABLE LETTER ─── */
 .letter-scroll{
   max-height:55vh;overflow-y:auto;
   scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;
@@ -331,7 +325,6 @@ body{
 .letter-scroll::-webkit-scrollbar-track{background:transparent;}
 .letter-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:99px;}
 
-/* ─── SHOOTING STAR ─── */
 .shooting-star{
   position:fixed;pointer-events:none;z-index:2;
   height:2px;
@@ -358,7 +351,6 @@ body{
 <canvas id="galaxyCanvas"></canvas>
 <div id="nebula"></div>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-glyph">✦</div>
   <div class="loader-title">Happy Birthday, Nayab</div>
@@ -366,9 +358,7 @@ body{
   <div class="loader-track"><div class="loader-bar"></div></div>
 </div>
 
-<!-- MUSIC -->
 <button class="music-btn" id="musicBtn" title="Toggle music">♪</button>
-<!-- Birthday song via Web Audio API (no external file needed) -->
 <audio id="bgMusic" loop></audio>
 
 <!-- ═════════ PAGE 1 ═════════ -->
@@ -385,7 +375,7 @@ body{
     <p class="subtitle">Would you like to discover why tonight feels<br>a little more magical than usual?</p>
     <div class="btn-wrap">
       <button class="btn btn-primary" onclick="goPage(1,2,true)">Yes 💕</button>
-      <button class="btn btn-secondary" onclick="goPage(1,3,false)">No 🧸</button>
+      <button class="btn btn-secondary" onclick="goNoPage(1)">No 🧸</button>
     </div>
   </div>
 </section>
@@ -403,7 +393,7 @@ body{
     <p class="subtitle">Would you like to know who that person is?</p>
     <div class="btn-wrap">
       <button class="btn btn-primary" onclick="goPage(2,4,true)">Yes 💖</button>
-      <button class="btn btn-secondary" onclick="goPage(2,3,false)">No 🧸</button>
+      <button class="btn btn-secondary" onclick="goNoPage(2)">No 🧸</button>
     </div>
   </div>
 </section>
@@ -414,11 +404,10 @@ body{
     <span style="font-size:4rem;display:block;margin-bottom:18px">🧸</span>
     <div class="kicker">Seriously?</div>
     <h1 class="hero-title">You clicked <span class="glow">No?</span></h1>
-    <p class="subtitle">The teddy bears are disappointed.<br>The flowers are shocked.<br>The stars are filing complaints.<br>Among billions of people on Earth, Manzar chose to spend his hours.</p>
+    <p class="subtitle">The teddy bears are disappointed.<br>The flowers are shocked.<br>The stars are filing complaints.<br>Among billions of people on Earth, Manzar chose to spend his hours, building a little universe of his own — just for you.</p>
     <div class="divider">💕</div>
     <p class="subtitle">Fortunately it's your birthday, so you're forgiven.</p>
     <div class="btn-wrap">
-      <button class="btn btn-primary" onclick="goPage(3,4,true)">Fine, Yes 💖</button>
       <button class="btn btn-secondary" id="goBackBtn" onclick="goBackFromNo()">Go Back</button>
     </div>
   </div>
@@ -494,21 +483,11 @@ body{
 
 <!-- ═════════ PAGE 7 — FINAL ═════════ -->
 <section class="page" id="page7">
-  <div class="panel">
-    <span class="cake-emoji">🎂</span>
-    <div class="kicker">Always</div>
-    <h1 class="hero-title">Happy Birthday<br><span class="gold">Nayab</span></h1>
-    <p class="subtitle">
-      May this year bring you everything your heart hopes for.<br>
-      May your happiest moments become even happier.<br>
-      May your difficult days become easier.<br>
-      And may you always know that someone out there is genuinely rooting for your happiness.
-    </p>
-    <div class="divider">💖</div>
-    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);font-style:italic;margin-top:20px;font-weight:600">
+  <div style="text-align:center;">
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.2rem);color:#f5d97a;font-style:italic;font-weight:600;margin-bottom:18px;text-shadow:0 0 60px rgba(245,217,122,.3);">
       With Love, Always.
     </div>
-    <div style="margin-top:36px;letter-spacing:.35em;text-transform:uppercase;font-size:.62rem;color:rgba(255,255,255,.25)">
+    <div style="letter-spacing:.45em;text-transform:uppercase;font-size:.62rem;color:rgba(255,255,255,.28);font-weight:400;">
       Made By Manzar Alam
     </div>
   </div>
@@ -516,15 +495,21 @@ body{
 
 <script>
 /* ══════════════════════════════════════════════════════
-   CINEMATIC GALAXY — 2D Canvas, multi-layer, parallax
+   CINEMATIC GALAXY — faster ambient + cursor parallax
 ══════════════════════════════════════════════════════ */
 (function(){
   const C = document.getElementById('galaxyCanvas');
   const ctx = C.getContext('2d');
 
-  let W, H, mouse = {x:0, y:0}, touch = {x:0, y:0};
+  let W, H;
   let targetMX = 0, targetMY = 0;
   let smoothMX = 0, smoothMY = 0;
+
+  // Auto-drift when no cursor (faster now)
+  let autoDriftX = 0, autoDriftY = 0;
+  let autoDriftAngle = 0;
+  let hasCursor = false;
+  let cursorTimeout;
 
   function resize(){
     W = C.width  = window.innerWidth;
@@ -533,34 +518,32 @@ body{
   resize();
   window.addEventListener('resize', ()=>{ resize(); initStars(); });
 
-  // ── Mouse / Touch parallax ──
   window.addEventListener('mousemove', e=>{
+    hasCursor = true;
+    clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(()=>{ hasCursor = false; }, 2000);
     targetMX = (e.clientX / W - .5) * 2;
     targetMY = (e.clientY / H - .5) * 2;
   });
   window.addEventListener('touchmove', e=>{
+    hasCursor = true;
+    clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(()=>{ hasCursor = false; }, 2000);
     const t = e.touches[0];
     targetMX = (t.clientX / W - .5) * 2;
     targetMY = (t.clientY / H - .5) * 2;
   }, {passive:true});
 
-  // ── STAR LAYERS ──
-  // Each layer has different depth, size, speed
   const LAYERS = [
-    { count: 180, minR:3.5, maxR:7,   speed:.6, alpha:.95, twinkle:.04 },  // Large foreground
-    { count: 280, minR:2,   maxR:4.5, speed:.4, alpha:.8,  twinkle:.06 },  // Mid
-    { count: 380, minR:1,   maxR:3,   speed:.2, alpha:.65, twinkle:.08 },  // Far
-    { count: 200, minR:.8,  maxR:2,   speed:.08, alpha:.45, twinkle:.1 },  // Deep
+    { count: 180, minR:3.5, maxR:7,   speed:.6, alpha:.95, twinkle:.04 },
+    { count: 280, minR:2,   maxR:4.5, speed:.4, alpha:.8,  twinkle:.06 },
+    { count: 380, minR:1,   maxR:3,   speed:.2, alpha:.65, twinkle:.08 },
+    { count: 200, minR:.8,  maxR:2,   speed:.08, alpha:.45, twinkle:.1 },
   ];
 
   const STAR_COLORS = [
-    [255,255,255],  // white
-    [230,220,255],  // lavender white
-    [200,210,255],  // blue white
-    [255,240,200],  // warm gold
-    [255,180,220],  // pink
-    [180,220,255],  // ice blue
-    [255,255,220],  // yellow white
+    [255,255,255],[230,220,255],[200,210,255],[255,240,200],
+    [255,180,220],[180,220,255],[255,255,220],
   ];
 
   let stars = [];
@@ -573,7 +556,7 @@ body{
         stars.push({
           x: Math.random() * W,
           y: Math.random() * H,
-          bx: Math.random() * W, // base x (for parallax origin)
+          bx: Math.random() * W,
           by: Math.random() * H,
           r: L.minR + Math.random()*(L.maxR - L.minR),
           alpha: L.alpha * (.6 + Math.random()*.4),
@@ -583,9 +566,7 @@ body{
           twinklePhase: Math.random()*Math.PI*2,
           col,
           layer: li,
-          // Glow halo radius multiplier
           halo: Math.random() > .6 ? 2.5 + Math.random()*3 : 0,
-          // Sparkle cross
           sparkle: Math.random() > .75,
         });
       }
@@ -593,48 +574,33 @@ body{
   }
   initStars();
 
-  // ── PARTICLE CLUSTERS (nebula dust) ──
   const DUST = [];
-  const DUST_COUNT = 120;
-  for(let i=0;i<DUST_COUNT;i++){
+  for(let i=0;i<120;i++){
     DUST.push({
-      x: Math.random()*W,
-      y: Math.random()*H,
+      x: Math.random()*W, y: Math.random()*H,
       r: 1 + Math.random()*1.5,
       alpha: .1 + Math.random()*.25,
-      col: [
-        [180,100,255],
-        [255,100,160],
-        [100,160,255],
-        [255,220,120],
-      ][Math.floor(Math.random()*4)],
+      col:[[180,100,255],[255,100,160],[100,160,255],[255,220,120]][Math.floor(Math.random()*4)],
       speed: .05 + Math.random()*.1,
       angle: Math.random()*Math.PI*2,
       drift: .001 + Math.random()*.003,
     });
   }
 
-  // ── SHOOTING STARS ──
   let shootingStars = [];
   function spawnShootingStar(){
-    const angle = (.15 + Math.random()*.2) * Math.PI; // diagonal down-right
+    const angle = (.15 + Math.random()*.2) * Math.PI;
     const speed = 6 + Math.random()*8;
-    const startX = Math.random()*(W*.7);
-    const startY = Math.random()*(H*.4);
     shootingStars.push({
-      x: startX, y: startY,
-      vx: Math.cos(angle)*speed,
-      vy: Math.sin(angle)*speed,
+      x: Math.random()*(W*.7), y: Math.random()*(H*.4),
+      vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed,
       len: 60 + Math.random()*120,
       alpha:1, life:1,
       r: .8 + Math.random()*.8,
     });
   }
-  setInterval(()=>{
-    if(Math.random()<.7) spawnShootingStar();
-  }, 2800);
+  setInterval(()=>{ if(Math.random()<.7) spawnShootingStar(); }, 2800);
 
-  // ── PARTICLE TRAILS on cursor ──
   let trails = [];
   let lastTrailTime = 0;
   window.addEventListener('mousemove', e=>{
@@ -650,7 +616,6 @@ body{
     });
   });
 
-  // ── BLOOM / GLOW helper ──
   function drawGlow(x,y,r,col,a){
     if(!isFinite(x)||!isFinite(y)||!isFinite(r)||r<=0||!isFinite(a)||a<=0) return;
     const g = ctx.createRadialGradient(x,y,0,x,y,r);
@@ -682,13 +647,20 @@ body{
   function frame(){
     t += .016;
 
-    // Smooth mouse
-    smoothMX += (targetMX - smoothMX) * .04;
-    smoothMY += (targetMY - smoothMY) * .04;
+    // Auto-drift when no cursor — gentle sine wave movement (faster than before)
+    autoDriftAngle += 0.006; // increased from ~0.001
+    if(!hasCursor){
+      // Drift with nice Lissajous-like pattern
+      targetMX = Math.sin(autoDriftAngle * 0.7) * 0.55;
+      targetMY = Math.cos(autoDriftAngle * 0.5) * 0.4;
+    }
+
+    // Smoother lerp — slightly faster catch-up
+    smoothMX += (targetMX - smoothMX) * 0.05;
+    smoothMY += (targetMY - smoothMY) * 0.05;
 
     ctx.clearRect(0,0,W,H);
 
-    // Deep space gradient base
     const bg = ctx.createRadialGradient(W*.4, H*.35, 0, W*.5, H*.5, Math.max(W,H)*.75);
     bg.addColorStop(0,'#0d0520');
     bg.addColorStop(.4,'#060212');
@@ -696,7 +668,6 @@ body{
     ctx.fillStyle = bg;
     ctx.fillRect(0,0,W,H);
 
-    // ── Nebula soft blobs ──
     const nebula1 = ctx.createRadialGradient(W*.2,H*.3,0,W*.2,H*.3,W*.4);
     nebula1.addColorStop(0,'rgba(120,50,200,.09)');
     nebula1.addColorStop(1,'rgba(120,50,200,0)');
@@ -712,7 +683,6 @@ body{
     nebula3.addColorStop(1,'rgba(60,110,255,0)');
     ctx.fillStyle=nebula3;ctx.fillRect(0,0,W,H);
 
-    // ── Dust particles ──
     DUST.forEach(d=>{
       d.angle += d.drift;
       d.x += Math.cos(d.angle)*d.speed + smoothMX*d.speed*8;
@@ -726,50 +696,42 @@ body{
       ctx.globalAlpha=1;
     });
 
-    // ── Stars ──
     stars.forEach(s=>{
-      // Parallax offset by layer depth
-      const px = s.bx + smoothMX * s.speed * 60;
-      const py = s.by + smoothMY * s.speed * 60;
+      // Stronger parallax multiplier for more visible movement
+      const px = s.bx + smoothMX * s.speed * 90;
+      const py = s.by + smoothMY * s.speed * 90;
       s.x = px; s.y = py;
 
-      // Twinkle
       const tw = Math.sin(t * s.twinkleSpeed + s.twinklePhase);
       const a = Math.max(.05, s.baseAlpha + tw * .3);
 
-      // Halo / bloom
       if(s.halo > 0){
         drawGlow(s.x, s.y, s.r * s.halo, s.col, a * .25);
         drawGlow(s.x, s.y, s.r * s.halo * 1.8, s.col, a * .08);
       }
 
-      // Core star
       ctx.globalAlpha = a;
       ctx.fillStyle = `rgb(${s.col[0]},${s.col[1]},${s.col[2]})`;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
       ctx.fill();
 
-      // Sparkle cross on big stars
       if(s.sparkle && s.r > 2.5){
         drawSparkle(s.x, s.y, s.r, s.col, a*.5);
       }
       ctx.globalAlpha = 1;
     });
 
-    // ── Shooting stars ──
     shootingStars = shootingStars.filter(ss=>{
       ss.x += ss.vx; ss.y += ss.vy;
       ss.life -= .018;
       if(ss.life <= 0) return false;
       const a = ss.life;
-      // Safe magnitude — guard against zero
       const mag = Math.sqrt(ss.vx*ss.vx + ss.vy*ss.vy) || 1;
-      const nx = ss.vx / mag;  // unit vector
+      const nx = ss.vx / mag;
       const ny = ss.vy / mag;
-      const tx = ss.x - nx * ss.len;   // tail end
+      const tx = ss.x - nx * ss.len;
       const ty = ss.y - ny * ss.len;
-      // Only draw gradient if points are different
       if(Math.abs(ss.x-tx) > 0.01 || Math.abs(ss.y-ty) > 0.01){
         const g = ctx.createLinearGradient(ss.x, ss.y, tx, ty);
         g.addColorStop(0,`rgba(255,255,255,${a})`);
@@ -783,15 +745,12 @@ body{
         ctx.lineTo(tx, ty);
         ctx.stroke();
       }
-      // Head glow
       drawGlow(ss.x, ss.y, 8, [255,255,255], a*.8);
       return true;
     });
 
-    // ── Cursor trails ──
     trails = trails.filter(tr=>{
       tr.alpha -= .06;
-      tr.life  -= .06;
       if(tr.alpha<=0) return false;
       drawGlow(tr.x, tr.y, tr.r*5, tr.col, tr.alpha*.3);
       ctx.globalAlpha = tr.alpha;
@@ -807,32 +766,44 @@ body{
 })();
 
 /* ══════════════════════════════════════════
-   BIRTHDAY SONG — Web Audio API
-   Plays the actual "Happy Birthday to You" melody
+   BIRTHDAY MUSIC — Warm candlelight jazz vibe
+   Piano melody + soft pad + gentle bass
 ══════════════════════════════════════════ */
 let audioCtx = null;
 let songPlaying = false;
 let songNodes = [];
+let masterGain = null;
 
-// Happy Birthday melody: [note in Hz, duration in beats]
-const NOTES = {
-  C4:261.63, D4:293.66, E4:329.63, F4:349.23,
-  G4:392.00, A4:440.00, Bb4:466.16,
-  C5:523.25, D5:587.33, E5:659.25, F5:698.46,
-  G5:783.99, A5:880.00, _:0
+// Happy Birthday melody frequencies — jazz reharmonized
+const N = {
+  C3:130.81, G3:196.00, A3:220.00, Bb3:233.08, B3:246.94,
+  C4:261.63, D4:293.66, Eb4:311.13, E4:329.63, F4:349.23,
+  G4:392.00, A4:440.00, Bb4:466.16, B4:493.88,
+  C5:523.25, D5:587.33, Eb5:622.25, E5:659.25, F5:698.46,
+  G5:783.99, A5:880.00,
 };
-// Happy Birthday to You — full melody
+
+// Happy Birthday melody with swing feel
 const MELODY = [
-  // "Hap-py Birth-day to You"
-  [NOTES.C4,.75],[NOTES.C4,.25],[NOTES.D4,1],[NOTES.C4,1],[NOTES.F4,1],[NOTES.E4,2],
-  // "Hap-py Birth-day to You"
-  [NOTES.C4,.75],[NOTES.C4,.25],[NOTES.D4,1],[NOTES.C4,1],[NOTES.G4,1],[NOTES.F4,2],
-  // "Hap-py Birth-day dear Nayab"
-  [NOTES.C4,.75],[NOTES.C4,.25],[NOTES.C5,1],[NOTES.A4,1],[NOTES.F4,1],[NOTES.E4,1],[NOTES.D4,1],
-  // "Hap-py Birth-day to You"
-  [NOTES.Bb4,.75],[NOTES.Bb4,.25],[NOTES.A4,1],[NOTES.F4,1],[NOTES.G4,1],[NOTES.F4,2.5],
+  [N.C4,.75],[N.C4,.25],[N.D4,1],[N.C4,1],[N.F4,1],[N.E4,2],
+  [N.C4,.75],[N.C4,.25],[N.D4,1],[N.C4,1],[N.G4,1],[N.F4,2],
+  [N.C4,.75],[N.C4,.25],[N.C5,1],[N.A4,1],[N.F4,1],[N.E4,1],[N.D4,1],
+  [N.Bb4,.75],[N.Bb4,.25],[N.A4,1],[N.F4,1],[N.G4,1],[N.F4,2.5],
 ];
-const BPM = 82;
+
+// Jazz chord voicings [root, third, fifth, seventh] per section
+const CHORDS = [
+  // Section 1: F major7 feel
+  [[N.F4,N.A4,N.C5,N.E5], 4],
+  // Section 2: C major7
+  [[N.C4,N.E4,N.G4,N.B4], 4],
+  // Section 3: Bb major7
+  [[N.Bb3,N.D4,N.F4,N.A4], 4],
+  // Section 4: F major (resolve)
+  [[N.F4,N.A4,N.C5,N.E5], 4],
+];
+
+const BPM = 76; // slower, more intimate
 const BEAT = 60 / BPM;
 
 function initAudio(){
@@ -840,76 +811,145 @@ function initAudio(){
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 }
 
+// Warm piano tone — sine + harmonics
+function createPianoTone(freq, start, dur, gainVal){
+  const env = audioCtx.createGain();
+  env.gain.setValueAtTime(0, start);
+  env.gain.linearRampToValueAtTime(gainVal, start + 0.015);  // fast attack
+  env.gain.exponentialRampToValueAtTime(gainVal * 0.65, start + 0.08);
+  env.gain.exponentialRampToValueAtTime(gainVal * 0.5, start + dur*BEAT*0.6);
+  env.gain.linearRampToValueAtTime(0.0001, start + dur*BEAT * 0.92);
+
+  // Fundamental
+  const o1 = audioCtx.createOscillator();
+  o1.type = 'sine'; o1.frequency.value = freq;
+
+  // 2nd harmonic (octave) — gives warmth
+  const o2 = audioCtx.createOscillator();
+  o2.type = 'sine'; o2.frequency.value = freq * 2;
+  const g2 = audioCtx.createGain(); g2.gain.value = 0.18;
+
+  // 3rd harmonic — slight brightness
+  const o3 = audioCtx.createOscillator();
+  o3.type = 'triangle'; o3.frequency.value = freq * 3;
+  const g3 = audioCtx.createGain(); g3.gain.value = 0.06;
+
+  o1.connect(env);
+  o2.connect(g2); g2.connect(env);
+  o3.connect(g3); g3.connect(env);
+
+  env.connect(masterGain);
+
+  o1.start(start); o1.stop(start + dur*BEAT + 0.1);
+  o2.start(start); o2.stop(start + dur*BEAT + 0.1);
+  o3.start(start); o3.stop(start + dur*BEAT + 0.1);
+
+  songNodes.push(o1, o2, o3);
+}
+
+// Soft pad chord
+function createPadChord(freqs, start, dur){
+  freqs.forEach(freq => {
+    const osc = audioCtx.createOscillator();
+    const env = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+
+    env.gain.setValueAtTime(0, start);
+    env.gain.linearRampToValueAtTime(0.04, start + 0.6);  // slow attack — like strings
+    env.gain.setValueAtTime(0.04, start + dur*BEAT - 0.5);
+    env.gain.linearRampToValueAtTime(0, start + dur*BEAT);
+
+    osc.connect(env);
+    env.connect(masterGain);
+    osc.start(start); osc.stop(start + dur*BEAT + 0.1);
+    songNodes.push(osc);
+  });
+}
+
+// Warm bass note
+function createBass(freq, start, dur){
+  const osc = audioCtx.createOscillator();
+  const env = audioCtx.createGain();
+  osc.type = 'sine'; osc.frequency.value = freq;
+
+  env.gain.setValueAtTime(0, start);
+  env.gain.linearRampToValueAtTime(0.12, start + 0.04);
+  env.gain.exponentialRampToValueAtTime(0.07, start + 0.3);
+  env.gain.linearRampToValueAtTime(0, start + dur*BEAT * 0.85);
+
+  osc.connect(env);
+  env.connect(masterGain);
+  osc.start(start); osc.stop(start + dur*BEAT + 0.1);
+  songNodes.push(osc);
+}
+
+// Soft reverb (delay feedback loop)
+function createReverb(){
+  const delay = audioCtx.createDelay(0.45);
+  const delayGain = audioCtx.createGain();
+  const hpf = audioCtx.createBiquadFilter();
+
+  delay.delayTime.value = 0.38;
+  delayGain.gain.value = 0.28;
+  hpf.type = 'highpass'; hpf.frequency.value = 200;
+
+  masterGain.connect(delay);
+  delay.connect(hpf);
+  hpf.connect(delayGain);
+  delayGain.connect(delay);
+  delayGain.connect(audioCtx.destination);
+}
+
 function playBirthdaySong(){
   if(!audioCtx) return;
   stopSong();
   songPlaying = true;
 
-  const master = audioCtx.createGain();
-  master.gain.setValueAtTime(0.18, audioCtx.currentTime);
-  master.connect(audioCtx.destination);
+  masterGain = audioCtx.createGain();
+  masterGain.gain.setValueAtTime(0.22, audioCtx.currentTime);
+  masterGain.connect(audioCtx.destination);
+  createReverb();
 
-  // Reverb-like (convolver would need buffer; use delay + gain for atmosphere)
-  const delay = audioCtx.createDelay(.35);
-  const delayGain = audioCtx.createGain();
-  delayGain.gain.value = .22;
-  delay.connect(delayGain);
-  delayGain.connect(delay);
-  delayGain.connect(master);
+  let startTime = audioCtx.currentTime + 0.2;
 
-  let startTime = audioCtx.currentTime + .1;
-
-  function playNote(freq, dur, start){
-    if(freq === 0){ return; }
-
-    // Main tone — soft sine + slight triangle mix
-    const osc1 = audioCtx.createOscillator();
-    const osc2 = audioCtx.createOscillator();
-    const env  = audioCtx.createGain();
-
-    osc1.type = 'sine';
-    osc2.type = 'triangle';
-    osc1.frequency.value = freq;
-    osc2.frequency.value = freq;
-
-    // Envelope: quick attack, gentle decay, sustain, short release
-    env.gain.setValueAtTime(0, start);
-    env.gain.linearRampToValueAtTime(.7, start + .04);
-    env.gain.linearRampToValueAtTime(.5, start + .12);
-    env.gain.setValueAtTime(.5, start + dur*BEAT*.75);
-    env.gain.linearRampToValueAtTime(0, start + dur*BEAT*.98);
-
-    osc1.connect(env);
-    osc2.connect(env);
-    env.connect(master);
-    env.connect(delay);
-
-    osc1.start(start);
-    osc1.stop(start + dur*BEAT + .05);
-    osc2.start(start);
-    osc2.stop(start + dur*BEAT + .05);
-
-    songNodes.push(osc1, osc2);
-  }
-
+  // Play melody (piano tone)
   let t = startTime;
-  MELODY.forEach(([freq, beats])=>{
-    playNote(freq, beats, t);
+  MELODY.forEach(([freq, beats]) => {
+    createPianoTone(freq, t, beats, 0.55);
     t += beats * BEAT;
   });
 
-  // Loop: schedule replay
+  // Layer soft pad chords underneath
+  let ct = startTime;
+  CHORDS.forEach(([freqs, beats]) => {
+    // Drop chords an octave for warmth
+    const lowerFreqs = freqs.map(f => f / 2);
+    createPadChord(lowerFreqs, ct, beats);
+    // Bass root (two octaves below chord root)
+    createBass(freqs[0] / 4, ct, 2);
+    createBass(freqs[0] / 4, ct + 2*BEAT, 2);
+    ct += beats * BEAT;
+  });
+
+  // Gentle "ding" accent on beat 1 of each phrase (like a soft bell)
+  const accentTimes = [startTime, startTime + 6*BEAT, startTime + 12*BEAT, startTime + 17*BEAT];
+  accentTimes.forEach(at => {
+    createPianoTone(N.C5 * 2, at, 0.3, 0.15); // high gentle bell
+  });
+
   const totalDur = MELODY.reduce((s,[,b])=>s+b*BEAT, 0);
-  songNodes._loopTimer = setTimeout(()=>{
+  songNodes._loopTimer = setTimeout(() => {
     if(songPlaying) playBirthdaySong();
-  }, (totalDur + .5)*1000);
+  }, (totalDur + 1.5) * 1000);
 }
 
 function stopSong(){
   songPlaying = false;
-  songNodes.forEach(n=>{ try{ n.stop(); }catch(e){} });
+  songNodes.forEach(n=>{ try{ n.stop && n.stop(); }catch(e){} });
   clearTimeout(songNodes._loopTimer);
   songNodes = [];
+  if(masterGain){ try{ masterGain.disconnect(); }catch(e){} masterGain = null; }
 }
 
 /* ══════════════════════════════════════════
@@ -933,39 +973,72 @@ musicBtn.onclick = ()=>{
 };
 
 /* ══════════════════════════════════════════
-   PAGE TRANSITIONS
+   PAGE TRANSITIONS — Smooth, no flash
 ══════════════════════════════════════════ */
-let noOrigin = 1; // track where No was clicked
+let noOrigin = 1;
+let isTransitioning = false;
+
+function goNoPage(from){
+  noOrigin = from;
+  doTransition(from, 3);
+}
 
 function goPage(from, to, isYes){
-  if(from === 1 && !isYes) noOrigin = 1;
-  if(from === 2 && !isYes) noOrigin = 2;
   if(isYes) launchConfetti();
+  doTransition(from, to);
+}
+
+function goBackFromNo(){
+  doTransition(3, noOrigin);
+}
+
+function doTransition(from, to){
+  if(isTransitioning) return;
+  isTransitioning = true;
 
   const fromEl = document.getElementById('page'+from);
   const toEl   = document.getElementById('page'+to);
 
-  fromEl.classList.add('leaving');
-  setTimeout(()=>{
-    fromEl.classList.remove('active','leaving');
-    toEl.classList.add('active','entering');
-    window.scrollTo({top:0,behavior:'smooth'});
-    setTimeout(()=> toEl.classList.remove('entering'), 800);
-  }, 380);
-}
+  // Show toEl underneath, fully transparent, no position change
+  toEl.classList.add('active');
+  toEl.style.opacity = '0';
+  toEl.style.transform = 'translateY(20px) scale(0.97)';
+  toEl.style.transition = 'none';
+  toEl.style.pointerEvents = 'none';
 
-function goBackFromNo(){
-  const fromEl = document.getElementById('page3');
-  const toEl   = document.getElementById('page'+noOrigin);
-  fromEl.classList.add('leaving');
-  setTimeout(()=>{
-    fromEl.classList.remove('active','leaving');
-    toEl.classList.add('active','entering');
-    window.scrollTo({top:0,behavior:'smooth'});
-    setTimeout(()=> toEl.classList.remove('entering'), 800);
-  }, 380);
-}
+  // Force a reflow so the browser registers the initial state
+  toEl.getBoundingClientRect();
 
+  // Now animate both in the same frame
+  requestAnimationFrame(()=>{
+    // Fade out old page
+    fromEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    fromEl.style.opacity = '0';
+    fromEl.style.transform = 'scale(1.015)';
+
+    // Fade in new page
+    toEl.style.transition = 'opacity 0.45s cubic-bezier(0.22,1,0.36,1) 0.05s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.05s';
+    toEl.style.opacity = '1';
+    toEl.style.transform = 'translateY(0) scale(1)';
+    toEl.style.pointerEvents = '';
+  });
+
+  setTimeout(()=>{
+    // Clean up old page — just hide it, don't touch new page styles
+    fromEl.classList.remove('active');
+    fromEl.style.opacity = '';
+    fromEl.style.transform = '';
+    fromEl.style.transition = '';
+
+    // Clean up new page inline styles — CSS class handles display
+    toEl.style.opacity = '';
+    toEl.style.transform = '';
+    toEl.style.transition = '';
+
+    window.scrollTo(0, 0);
+    isTransitioning = false;
+  }, 560);
+}
 /* ══════════════════════════════════════════
    CONFETTI
 ══════════════════════════════════════════ */
